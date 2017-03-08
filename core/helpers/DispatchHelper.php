@@ -1,7 +1,7 @@
 <?php
 
 
-namespace export\helpers;
+namespace core\helpers;
 
 
 class DispatchHelper

@@ -6,7 +6,7 @@
  * Time: 下午2:45
  */
 
-namespace export;
+namespace core;
 
 
 class mysql extends \MysqliDb{

@@ -4,10 +4,7 @@
 
 define('EXPORT_PATH',__DIR__);
 define('BASE_PATH', EXPORT_PATH.'/..');
-define('DEBUG',1);
 
-require BASE_PATH . '/vendor/autoload.php';
-require BASE_PATH . '/app/config/config.php';
 
 if(DEBUG){
     error_reporting(E_ALL);
@@ -17,5 +14,3 @@ if(DEBUG){
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
     $whoops->register();
 }
-
-require BASE_PATH.'/app/config/routes.php';

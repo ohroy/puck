@@ -1,7 +1,7 @@
 <?php
-namespace export\models;
+namespace core\models;
 
-use export\model as model;
+use core\model as model;
 
 class BaseModel extends model
 {

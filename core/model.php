@@ -1,7 +1,7 @@
 <?php
 
 
-namespace export;
+namespace core;
 
 /*
  * this->where()

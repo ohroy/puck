@@ -1,6 +1,22 @@
 {
   "name": "rozbo/puck",
+  "description": "The other one magical php framework",
+  "type": "puck-framework",
+  "keywords": [
+    "framework",
+    "puck",
+    "php"
+  ],
+  "homepage": "https://puck.zz713.com/",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "rozbo",
+      "email": "rozbo@live.com"
+    }
+  ],
   "require": {
+    "php": ">=7.1.0",
     "filp/whoops": "~2.1.6",
     "noahbuscher/macaw": "dev-master",
     "joshcam/mysqli-database-class": "dev-master",
@@ -8,10 +24,9 @@
     "hassankhan/config": "^0.10.0",
     "overtrue/pinyin": "~3.0"
   },
-  "repositories": {
-    "packagist": {
-      "type": "composer",
-      "url": "https://packagist.phpcomposer.com"
+  "autoload": {
+    "psr-4": {
+      "puck\\": "core"
     }
   }
 }

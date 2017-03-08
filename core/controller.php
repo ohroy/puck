@@ -1,5 +1,5 @@
 <?php
-namespace export;
+namespace core;
 
 class controller
 {
