@@ -1,5 +1,5 @@
 <?php
-namespace core;
+namespace puck;
 
 class controller
 {

@@ -6,7 +6,7 @@
  * Time: 下午4:50
  */
 
-namespace core\helpers;
+namespace puck\helpers;
 
 use Overtrue\Pinyin\Pinyin;
 class PinYinHelper extends Pinyin{

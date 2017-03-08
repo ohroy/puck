@@ -3,8 +3,6 @@
 @header('content-type:text/html;charset=utf-8');
 
 define('EXPORT_PATH',__DIR__);
-define('BASE_PATH', EXPORT_PATH.'/..');
-
 
 if(DEBUG){
     error_reporting(E_ALL);

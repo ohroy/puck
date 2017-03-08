@@ -6,7 +6,7 @@
  * Time: 下午2:45
  */
 
-namespace core;
+namespace puck;
 
 
 class mysql extends \MysqliDb{

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace core\helpers;
+namespace puck\helpers;
 
 
 class DispatchHelper

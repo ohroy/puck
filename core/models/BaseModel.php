@@ -1,7 +1,7 @@
 <?php
-namespace core\models;
+namespace puck\models;
 
-use core\model as model;
+use puck\model as model;
 
 class BaseModel extends model
 {

@@ -6,7 +6,7 @@ c<?php
  * Time: 下午2:57
  */
 
-namespace core;
+namespace puck;
 use Noodlehaus\Config;
 
 class conf {

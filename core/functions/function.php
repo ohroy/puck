@@ -408,7 +408,7 @@ function think_filter(&$value)
     }
 }
 function config($name=null,$value=null,$default=null){
-    $config=\core\conf::load();
+    $config=\puck\conf::load();
     if ($name===null){
         return $config->all();
     }
