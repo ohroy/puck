@@ -27,6 +27,9 @@
   "autoload": {
     "psr-4": {
       "puck\\": "core"
-    }
+    },
+    "files": [
+      "export/functions/function.php"
+    ]
   }
 }
