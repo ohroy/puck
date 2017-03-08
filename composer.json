@@ -29,7 +29,7 @@
       "puck\\": "core"
     },
     "files": [
-      "export/functions/function.php"
+      "core/functions/function.php"
     ]
   }
 }
