@@ -51,7 +51,7 @@ class DispatchHelper
         if (!preg_match('/^[A-Za-z](\/|\w)*$/', CONTROLLER_NAME)) {
             die("error controller");
         }
-        $class=$app.'\\controllers\\'.ucfirst(CONTROLLER_NAME).'Controller';
+        $class=$app.'\\controllers\\'.ucfirst(CONTROLLER_NAME);
         if (!class_exists($class)) {
             not_found('this controller is can not work now!');
         }

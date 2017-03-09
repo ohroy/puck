@@ -1,4 +1,4 @@
-c<?php
+<?php
 /**
  * Created by IntelliJ IDEA.
  * User: rozbo
@@ -13,7 +13,7 @@ class conf {
     static $config=false;
     static public function load(){
         if(!self::$config){
-            self::$config=Config::load(EXPORT_PATH.'/conf');
+            self::$config=Config::load(BASE_PATH.'/app/conf');
         }
         return self::$config;
     }
