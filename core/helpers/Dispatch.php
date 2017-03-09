@@ -7,14 +7,16 @@ namespace puck\helpers;
 class Dispatch
 {
     static public function init(){
-        define('NOW_TIME', $_SERVER['REQUEST_TIME']);
-        define('REQUEST_METHOD', $_SERVER['REQUEST_METHOD']);
-        define('IS_GET', REQUEST_METHOD == 'GET' ? true : false);
-        define('IS_POST', REQUEST_METHOD == 'POST' ? true : false);
-        define('IS_PUT', REQUEST_METHOD == 'PUT' ? true : false);
-        define('IS_DELETE', REQUEST_METHOD == 'DELETE' ? true : false);
-        define('IS_AJAX', ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ) ? true : false);
-        define('__SELF__', strip_tags($_SERVER['REQUEST_URI']));
+        if(!IS_CLI){
+            define('NOW_TIME', $_SERVER['REQUEST_TIME']);
+            define('REQUEST_METHOD', $_SERVER['REQUEST_METHOD']);
+            define('IS_GET', REQUEST_METHOD == 'GET' ? true : false);
+            define('IS_POST', REQUEST_METHOD == 'POST' ? true : false);
+            define('IS_PUT', REQUEST_METHOD == 'PUT' ? true : false);
+            define('IS_DELETE', REQUEST_METHOD == 'DELETE' ? true : false);
+            define('IS_AJAX', ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ) ? true : false);
+            define('__SELF__', strip_tags($_SERVER['REQUEST_URI']));
+        }
     }
     static public function dispatch($path='',$app='\\admin') {
         self::init();
@@ -86,9 +88,12 @@ class Dispatch
         }
     }
     static public function param(){
-        $vars=array();
-        parse_str(parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY),$vars);
-        $_GET=$vars;
+        if(!IS_CLI){
+            $vars=array();
+            parse_str(parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY),$vars);
+            $_GET=$vars;
+        }
+
     }
     static public function render($res){
         $response=$res;
