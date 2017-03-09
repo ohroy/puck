@@ -8,7 +8,7 @@ namespace puck;
  *
  *
  * */
-class model
+class Model
 {
     protected $db;
     protected $field;

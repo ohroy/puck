@@ -4,7 +4,7 @@
 namespace puck\helpers;
 
 
-class DispatchHelper
+class Dispatch
 {
     static public function init(){
         define('NOW_TIME', $_SERVER['REQUEST_TIME']);

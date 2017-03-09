@@ -9,7 +9,7 @@
 namespace puck;
 use Noodlehaus\Config;
 
-class conf {
+class Conf {
     static $config=false;
     static public function load(){
         if(!self::$config){

@@ -8,8 +8,8 @@
 
 namespace puck\helpers;
 
-use Overtrue\Pinyin\Pinyin;
-class PinYinHelper extends Pinyin{
+use Overtrue\Pinyin\Pinyin as VendorPinyin;
+class PinYin extends VendorPinyin{
 
     public function noun($str) {
         $pinyinArr=$this->convert($str);

@@ -1,7 +1,7 @@
 <?php
 namespace puck;
 
-class controller
+class Controller
 {
 
     protected $viewPath = '';

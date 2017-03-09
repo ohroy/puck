@@ -3,7 +3,7 @@
 
 namespace puck\helpers;
 
-class PageHelper{
+class Page{
     /**
      * set the number of items per page.
      *

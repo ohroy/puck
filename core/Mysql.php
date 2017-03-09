@@ -9,7 +9,7 @@
 namespace puck;
 
 
-class mysql extends \MysqliDb{
+class Mysql extends \MysqliDb{
 
     static public function getDb($db){
         static $dbList;
