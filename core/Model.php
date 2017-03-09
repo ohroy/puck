@@ -20,7 +20,7 @@ class Model
         if(!$this->dbConn){
             $this->dbConn='main';
         }
-        $this->db = mysql::getDb($this->dbConn);
+        $this->db = Mysql::getDb($this->dbConn);
     }
     public function __call($method,$arg){
         $ret=$this;
@@ -46,7 +46,7 @@ class Model
         return $this->db->get($this->table,$this->limitCount?$this->limitCount:null,$this->field);
     }
     public function count(){
-        return $this->db->count;
+        return $this->field("count(*) as count")->find()['count'];
     }
     public function table($table){
         $this->table=$table;

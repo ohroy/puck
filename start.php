@@ -3,7 +3,7 @@
 @header('content-type:text/html;charset=utf-8');
 
 define('EXPORT_PATH',__DIR__);
-define('PUCK_VER','1.0.16');
+define('PUCK_VER','1.0.17');
 if(DEBUG){
     error_reporting(E_ALL);
     @ini_set('display_errors', 'On');
