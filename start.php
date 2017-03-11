@@ -8,7 +8,7 @@ define('IS_CLI',php_sapi_name()=='cli');
 if(DEBUG){
     error_reporting(E_ALL);
     @ini_set('display_errors', 'On');
-    @ob_start();
+    //@ob_start();
     $whoops = new \Whoops\Run;
     $handle=IS_CLI?"PlainTextHandler":"PrettyPageHandler";
     $handle="\\Whoops\\Handler\\".$handle;
