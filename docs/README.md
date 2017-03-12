@@ -1,4 +1,10 @@
 
+
+
+
+
+!> 此文档针对`puck 0.*`，目前现行版本已经升级，故此文档仅供参考。
+
 # 啰嗦一番
 ## 为什么
 我为什么要做个框架？这是一开始最先考虑的问题。在开发`php`程序的过程中，我们习惯性的总是在使用各种
@@ -469,7 +475,18 @@ curl http://xxx.com/admin/home/index
 ```html
 hello ,welcome  to admin !
 ```
+
+
+# 配置读写
+
+?> 待维护。。。
+
+
+
+
+
 # 数据库
+
 本框架的数据库仅支持`mysqli`,由[PHP-MySQLi-Database-Class](https://github.com/joshcam/PHP-MySQLi-Database-Class)提供底层支持.
 但框架对其进行了易用性封装,使其语法更容易被接受.  
 
