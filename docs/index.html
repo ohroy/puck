@@ -6,12 +6,23 @@
   <title>puck php framework</title>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">loading....</div>
 </body>
-<script src="./docsify.min.js?v=1.0.6" 
-  data-max-level="4"
-  data-sidebar-toggle
-  data-coverpage
-  data-router
-  data-repo="rozbo/puck"></script>
+<script>
+  window.$docsify = {
+    auto2top: true,
+    coverpage: true,
+    executeScript: true,
+    loadSidebar: true,
+    loadNavbar: false,
+    maxLevel: 4,
+    name: 'puck',
+    repo: 'rozbo/puck',
+    search: {
+      paths: 'auto',
+    },
+    subMaxLevel: 2
+  }
+</script>
+<script src="./docsify.min.js?v=1.0.6"></script>
 </html>
