@@ -1,2 +1,14 @@
-- [quick start](/preface)
-- [控制器](/controllers)
+- 入门
+    - [啰嗦一番](/preface)
+    - [快速开始](/quickstart)
+    - [大体了解](/formind)
+- 进阶
+    - [路由](/router)
+    - [控制器](/controller)
+    - [配置](/config)
+    - [数据库](/db)
+    - [模型](/model)
+    - [视图](/view)
+    - [异常](/exception)
+-  拓展
+    - 待添加
