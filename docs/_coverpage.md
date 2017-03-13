@@ -10,4 +10,4 @@
 
 
 [GitHub](https://github.com/rozbo/puck)
-[Get Started](#啰嗦一番)
+[Get Started](#puck)
