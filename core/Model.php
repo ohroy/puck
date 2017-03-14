@@ -3,11 +3,9 @@
 
 namespace puck;
 
-/*
- * this->where()
- *
- *
- * */
+/**
+ * @property  totalCount
+ */
 class Model
 {
     protected $db;

@@ -41,7 +41,7 @@ class Controller
     {
         if ($tmpPath == '') {
             if (defined("CONTROLLER_NAME") && defined("ACTION_NAME")) {
-                $tmpPath = CONTROLLER_NAME . '/' . ACTION_NAME;
+                $tmpPath = parse_name(CONTROLLER_NAME) . '/' . parse_name(ACTION_NAME);
             } else {
                 show_json($this->tVar);
             }
