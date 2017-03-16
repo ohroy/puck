@@ -5,7 +5,10 @@
 [![Packagist](https://img.shields.io/packagist/dt/rozbo/puck.svg)](https://packagist.org/packages/rozbo/puck)
 [![Scrutinizer Build](https://img.shields.io/scrutinizer/build/g/rozbo/puck.svg)](https://scrutinizer-ci.com/g/Rozbo/puck)
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/rozbo/puck.svg)](https://scrutinizer-ci.com/g/Rozbo/puck)
-[![Scrutinizer](https://img.shields.io/scrutinizer/g/rozbo/puck.svg)]([![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/rozbo/puck.svg)](https://scrutinizer-ci.com/g/Rozbo/puck))
+[![Scrutinizer](https://img.shields.io/scrutinizer/g/rozbo/puck.svg)](https://scrutinizer-ci.com/g/Rozbo/puck)
+
+
+[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/rozbo/puck.svg)](https://scrutinizer-ci.com/g/Rozbo/puck)
 
 ## puck
 
