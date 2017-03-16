@@ -53,6 +53,9 @@ class Model
     public function add($data){
         return $this->db->insert($this->table,$data);
     }
+    public function replace($data){
+        return $this->db->replace($this->table,$data);
+    }
     public function update($data){
         return $this->db->update($this->table,$data);
     }
@@ -65,7 +68,7 @@ class Model
     }
     public function page($page,$pageLimit='10'){
         $this->db->pageLimit=$pageLimit;
-        $info= $this->db->paginate($this->table,$page);
+        $info= $this->db->paginate($this->table,$page,$this->field);
         return $info;
     }
 }
