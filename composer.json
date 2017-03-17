@@ -24,6 +24,9 @@
     "hassankhan/config": "^0.10.0",
     "overtrue/pinyin": "~3.0"
   },
+  "require-dev": {
+    "phpunit/phpunit": "4.8.*"
+  },
   "archive": {
         "exclude": ["docs"]
   },
