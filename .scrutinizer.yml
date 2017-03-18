@@ -7,7 +7,7 @@ checks:
         code_rating: true
 
 tools:
-    external_code_coverage: true
+    external_code_coverage: false
     php_analyzer: true
     php_changetracking: true
     php_code_sniffer:
