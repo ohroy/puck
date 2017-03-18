@@ -35,8 +35,9 @@ function get_client_ip($type = 0, $adv = true)
     return $ip[$type];
 }
 //2为直接输出数组
-function show_json($arr,$type=2)
+function show_json(array $arr,$type=2)
 {
+
     if(isset($arr['status']) && $type==2){
         $ret=$arr;
     }
@@ -58,8 +59,6 @@ function success($arr)
 
 function error($arr)
 {
-/*    $db=\MysqliDb::getInstance();
-    $db->_transaction_status_check();*/
     show_json($arr,0);
 }
 function not_found($str='page not found,that is all we know!'){
@@ -330,8 +329,12 @@ function I($name, $default = '', $filter = null, $datas = null)
             if (is_string($filters)) {
                 $filters = explode(',', $filters);
             }
-            foreach ($filters as $filter) {
-                $data = array_map_recursive($filter, $data); // 参数过滤
+            else if (is_array($filters)){
+                foreach ($filters as $filter) {
+                    $data = array_map_recursive($filter, $data); // 参数过滤
+                }
+            }else{
+                throw new \RuntimeException('$filters must be an array or string.');
             }
         }
     } elseif (isset($input[$name])) {
