@@ -18,11 +18,11 @@ tools:
     php_pdepend: true
     sensiolabs_security_checker: true
 build:
-     before:
-          - 'composer install'
+    before:
+        - 'composer install'
     environment:
-            php:
-                version: 7.1
+        php:
+            version: 7.1
     tests:
         override:
             -
