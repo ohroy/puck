@@ -18,6 +18,9 @@ tools:
     php_pdepend: true
     sensiolabs_security_checker: true
 build:
+    environment:
+            php:
+                version: 7.1
     tests:
         override:
             -
