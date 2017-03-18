@@ -10,9 +10,8 @@ use puck\App;
 
 
 class AppTest extends TestCase {
-//    public function testApp() {
-//        $app = new \puck\App();
-//        //dump($app->make("str"));
-//
-//    }
+    public function testApp() {
+        $flag=app() instanceof App;
+        $this->assertTrue($flag);
+    }
 }
