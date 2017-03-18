@@ -17,3 +17,11 @@ tools:
     php_mess_detector: true
     php_pdepend: true
     sensiolabs_security_checker: true
+build:
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=test_result'
+                coverage:
+                    file: 'test_result'
+                    format: 'clover'
