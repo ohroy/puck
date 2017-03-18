@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "php": ">=7.1.0",
+    "php": ">=7.0.0",
     "filp/whoops": "~2.1.6",
     "noahbuscher/macaw": "dev-master",
     "joshcam/mysqli-database-class": "dev-master",
@@ -25,17 +25,17 @@
     "overtrue/pinyin": "~3.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.8.*"
+    "phpunit/phpunit": "6.*"
   },
   "archive": {
-        "exclude": ["docs"]
+        "exclude": ["docs","tests"]
   },
   "autoload": {
     "psr-4": {
       "puck\\": "core"
     },
     "files": [
-      "core/functions/function.php"
+      "function.php"
     ]
   }
 }

@@ -1,9 +1,8 @@
 <?php
 @ini_set('date.timezone', 'Asia/Shanghai');
 @header('content-type:text/html;charset=utf-8');
-
 define('EXPORT_PATH',__DIR__);
-define('PUCK_VER','1.0.17');
+define('PUCK_VER','1.1.0');
 define('IS_CLI',php_sapi_name()=='cli');
 if(DEBUG){
     error_reporting(E_ALL);
