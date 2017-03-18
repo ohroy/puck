@@ -9,7 +9,7 @@ namespace puck;
 class Facade
 {
 
-    protected static $bind = [];
+    protected static $bind=[];
 
     /**
      * 绑定类的静态代理
@@ -19,12 +19,12 @@ class Facade
      * @param string    $class   实际类名
      * @return object
      */
-    public static function bind($name, $class = null)
+    public static function bind($name, $class=null)
     {
         if (is_array($name)) {
-            self::$bind = array_merge(self::$bind, $name);
+            self::$bind=array_merge(self::$bind, $name);
         } else {
-            self::$bind[$name] = $class;
+            self::$bind[$name]=$class;
         }
     }
 
@@ -36,14 +36,14 @@ class Facade
      * @param array     $args     变量
      * @return object
      */
-    protected static function createFacade($class = '', $args = [])
+    protected static function createFacade($class='', $args=[])
     {
-        $class       = $class ?: static::class;
-        $facadeClass = static::getFacadeClass();
+        $class=$class ?: static::class;
+        $facadeClass=static::getFacadeClass();
         if ($facadeClass) {
-            $class = $facadeClass;
+            $class=$facadeClass;
         } elseif (isset(self::$bind[$class])) {
-            $class = self::$bind[$class];
+            $class=self::$bind[$class];
         }
         return Container::getInstance()->make($class, $args);
     }
@@ -67,7 +67,7 @@ class Facade
      * @param array     $args     变量
      * @return object
      */
-    public static function make($class, $args = [])
+    public static function make($class, $args=[])
     {
         return self::createFacade($class, $args);
     }

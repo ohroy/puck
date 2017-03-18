@@ -12,9 +12,9 @@ class Container implements \ArrayAccess
     // 容器对象实例
     protected static $instance;
     // 容器中的对象实例
-    protected $instances = [];
+    protected $instances=[];
     // 容器中绑定的对象标识
-    protected $bind = [];
+    protected $bind=[];
 
     /**
      * 获取当前容器的实例（单例）
@@ -24,7 +24,7 @@ class Container implements \ArrayAccess
     public static function getInstance()
     {
         if (is_null(static::$instance)) {
-            static::$instance = new static;
+            static::$instance=new static;
         }
 
         return static::$instance;
@@ -37,12 +37,12 @@ class Container implements \ArrayAccess
      * @param string|\Closure   $concrete    要绑定的类或者闭包
      * @return void
      */
-    public function bind($abstract, $concrete = null)
+    public function bind($abstract, $concrete=null)
     {
         if (is_array($abstract)) {
-            $this->bind = array_merge($this->bind, $abstract);
+            $this->bind=array_merge($this->bind, $abstract);
         } else {
-            $this->bind[$abstract] = $concrete;
+            $this->bind[$abstract]=$concrete;
         }
     }
 
@@ -55,7 +55,7 @@ class Container implements \ArrayAccess
      */
     public function instance($abstract, $instance)
     {
-        $this->instances[$abstract] = $instance;
+        $this->instances[$abstract]=$instance;
     }
 
     /**
@@ -72,25 +72,24 @@ class Container implements \ArrayAccess
     /**
      * 创建类的实例
      * @access public
-     * @param string    $class    类名或者标识
-     * @param array     $args     变量
+     * @param array     $vars     变量
      * @return object
      */
-    public function make($abstract, $vars = [])
+    public function make($abstract, $vars=[])
     {
         if (isset($this->instances[$abstract])) {
-            $object = $this->instances[$abstract];
+            $object=$this->instances[$abstract];
         } elseif (isset($this->bind[$abstract])) {
-            $concrete = $this->bind[$abstract];
+            $concrete=$this->bind[$abstract];
             if ($concrete instanceof \Closure) {
-                $object = call_user_func_array($concrete, $vars);
+                $object=call_user_func_array($concrete, $vars);
             } else {
-                $object = $this->make($concrete, $vars);
+                $object=$this->make($concrete, $vars);
             }
         } else {
-            $object = $this->invokeClass($abstract, $vars);
+            $object=$this->invokeClass($abstract, $vars);
 
-            $this->instances[$abstract] = $object;
+            $this->instances[$abstract]=$object;
         }
         return $object;
     }
@@ -98,14 +97,14 @@ class Container implements \ArrayAccess
     /**
      * 执行函数或者闭包方法 支持参数调用
      * @access public
-     * @param string|array|\Closure $function 函数或者闭包
+     * @param \Closure $function 函数或者闭包
      * @param array                 $vars     变量
      * @return mixed
      */
-    public function invokeFunction($function, $vars = [])
+    public function invokeFunction($function, $vars=[])
     {
-        $reflect = new \ReflectionFunction($function);
-        $args    = $this->bindParams($reflect, $vars);
+        $reflect=new \ReflectionFunction($function);
+        $args=$this->bindParams($reflect, $vars);
         return $reflect->invokeArgs($args);
     }
 
@@ -116,16 +115,16 @@ class Container implements \ArrayAccess
      * @param array        $vars   变量
      * @return mixed
      */
-    public function invokeMethod($method, $vars = [])
+    public function invokeMethod($method, $vars=[])
     {
         if (is_array($method)) {
-            $class   = is_object($method[0]) ? $method[0] : $this->invokeClass($method[0]);
-            $reflect = new \ReflectionMethod($class, $method[1]);
+            $class=is_object($method[0]) ? $method[0] : $this->invokeClass($method[0]);
+            $reflect=new \ReflectionMethod($class, $method[1]);
         } else {
             // 静态方法
-            $reflect = new \ReflectionMethod($method);
+            $reflect=new \ReflectionMethod($method);
         }
-        $args = $this->bindParams($reflect, $vars);
+        $args=$this->bindParams($reflect, $vars);
         return $reflect->invokeArgs(isset($class) ? $class : null, $args);
     }
 
@@ -136,12 +135,12 @@ class Container implements \ArrayAccess
      * @param array $vars   变量
      * @return mixed
      */
-    public function invoke($callable, $vars = [])
+    public function invoke($callable, $vars=[])
     {
         if ($callable instanceof \Closure) {
-            $result = $this->invokeFunction($callable, $vars);
+            $result=$this->invokeFunction($callable, $vars);
         } else {
-            $result = $this->invokeMethod($callable, $vars);
+            $result=$this->invokeMethod($callable, $vars);
         }
         return $result;
     }
@@ -153,14 +152,14 @@ class Container implements \ArrayAccess
      * @param array     $vars  变量
      * @return mixed
      */
-    public function invokeClass($class, $vars = [])
+    public function invokeClass($class, $vars=[])
     {
-        $reflect     = new \ReflectionClass($class);
-        $constructor = $reflect->getConstructor();
+        $reflect=new \ReflectionClass($class);
+        $constructor=$reflect->getConstructor();
         if ($constructor) {
-            $args = $this->bindParams($constructor, $vars);
+            $args=$this->bindParams($constructor, $vars);
         } else {
-            $args = [];
+            $args=[];
         }
         return $reflect->newInstanceArgs($args);
     }
@@ -172,28 +171,28 @@ class Container implements \ArrayAccess
      * @param array                                 $vars    变量
      * @return array
      */
-    protected function bindParams($reflect, $vars = [])
+    protected function bindParams($reflect, $vars=[])
     {
-        $args = [];
+        $args=[];
         if ($reflect->getNumberOfParameters() > 0) {
             // 判断数组类型 数字数组时按顺序绑定参数
             reset($vars);
-            $type   = key($vars) === 0 ? 1 : 0;
-            $params = $reflect->getParameters();
+            $type=key($vars) === 0 ? 1 : 0;
+            $params=$reflect->getParameters();
             foreach ($params as $param) {
-                $name  = $param->getName();
-                $class = $param->getClass();
+                $name=$param->getName();
+                $class=$param->getClass();
                 if ($class) {
-                    $className = $class->getName();
-                    $args[]    = $this->make($className);
+                    $className=$class->getName();
+                    $args[]=$this->make($className);
                 } elseif (1 == $type && !empty($vars)) {
-                    $args[] = array_shift($vars);
+                    $args[]=array_shift($vars);
                 } elseif (0 == $type && isset($vars[$name])) {
-                    $args[] = $vars[$name];
+                    $args[]=$vars[$name];
                 } elseif ($param->isDefaultValueAvailable()) {
-                    $args[] = $param->getDefaultValue();
+                    $args[]=$param->getDefaultValue();
                 } else {
-                    throw new \InvalidArgumentException('method param miss:' . $name);
+                    throw new \InvalidArgumentException('method param miss:'.$name);
                 }
             }
         }

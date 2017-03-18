@@ -9,7 +9,7 @@
 namespace puck\helpers;
 
 use Overtrue\Pinyin\Pinyin as VendorPinyin;
-class PinYin extends VendorPinyin{
+class PinYin extends VendorPinyin {
 
     public function noun($str) {
         $pinyinArr=$this->convert($str);
@@ -17,6 +17,6 @@ class PinYin extends VendorPinyin{
             //首字母转大写
             $pinyin[0]=strtoupper($pinyin[0]);
         }
-        return implode('',$pinyinArr);
+        return implode('', $pinyinArr);
     }
 }

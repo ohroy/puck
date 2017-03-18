@@ -4,13 +4,13 @@ class Chaos {
 	public $GbToBigArray;
 	public $_pinyin;
 	public $string;
-	public $url = '';
-	public $msg = '';
+	public $url='';
+	public $msg='';
 	public $action;
 	private $prefix;
 	
-    function __construct(){
-		$this->_pinyin = new PinYin();
+    function __construct() {
+		$this->_pinyin=new PinYin();
 	}
 
     /**
@@ -57,6 +57,9 @@ class Chaos {
 		$this->msg=$this->prefix.str_replace( '%%%%', $this->url, $this->msg);
 	}
 	
+	/**
+	 * @param string $url
+	 */
 	function setChacha($url ){
 		$url = strtolower($url);
 		$arr = array(
@@ -114,13 +117,21 @@ class Chaos {
 	}
 
 	//随机把一个字符转为拼音
+
+	/**
+	 * @param string $str
+	 */
 	function setPinyin($str) {
 		$py = mt_rand(0, iconv_strlen( $str, 'UTF-8' )-1);
 		$t_str = iconv_substr( $str, $py, 1, 'UTF-8');
-		if(mt_rand(0,10) > 5) $pinyin = " ";
+		if(mt_rand(0,10) > 5) {
+		    $pinyin = " ";
+		}
 		$pinyin = $this->_pinyin->convert($t_str,PINYIN_UNICODE);
         $pinyin=implode(" ",$pinyin);
-		if(mt_rand(0,10) > 5) $pinyin .= " ";
+		if(mt_rand(0,10) > 5) {
+		    $pinyin .= " ";
+		}
 		if($t_str != "%"){
 			$str = preg_replace("'$t_str'", $pinyin, $str, 1);
 		}
@@ -146,6 +157,10 @@ class Chaos {
 	}
 	
 	//随机插入不影响阅读的字符
+
+	/**
+	 * @param string $str
+	 */
 	function setBlankness($str) {
 		$blankness = array(" ", '　', '҉','̅̅','̲','̲̲','̅','̲̲̅̅');
 		$len = iconv_strlen( $str, 'UTF-8' );
