@@ -18,12 +18,12 @@ tools:
     php_pdepend: true
     sensiolabs_security_checker: true
 build:
-    before:
-        - 'composer install'
     environment:
         php:
             version: 7.1
     tests:
+        before:
+            - 'composer install'
         override:
             -
                 command: 'vendor/bin/phpunit --coverage-clover=test_result'
