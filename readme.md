@@ -8,8 +8,6 @@
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/rozbo/puck.svg)](https://scrutinizer-ci.com/g/Rozbo/puck)
 
 
-[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/rozbo/puck.svg)](https://scrutinizer-ci.com/g/Rozbo/puck)
-
 ## puck
 
 > 我是一个努力干活儿，还不粘人的小妖精。
