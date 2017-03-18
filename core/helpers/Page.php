@@ -133,71 +133,74 @@ class Page {
                 $ext=$this->getParam();
             }
             $pagination.="<ul class='pager'>";
-            if ($this->_page > 1)
-                $pagination.="<li class='previous'><a href='".$path."$this->_instance=$prev"."$ext'><<</a></li>";
-            else
-                $pagination.="<li class='disabled previous'><span class='disabled'><<</span></li>";
+            if ($this->_page > 1) {
+                            $pagination.="<li class='previous'><a href='".$path."$this->_instance=$prev"."$ext'><<</a></li>";
+            } else {
+                            $pagination.="<li class='disabled previous'><span class='disabled'><<</span></li>";
+            }
 
             if ($lastpage < 7 + ($adjacents * 2))
             {
                 for ($counter=1; $counter <= $lastpage; $counter++)
                 {
-                    if ($counter == $this->_page)
-                        $pagination.="<li class='current'><span>$counter</span></li>";
-                    else
-                        $pagination.="<li><a href='".$path."$this->_instance=$counter"."$ext'>$counter</a></li>";
+                    if ($counter == $this->_page) {
+                                            $pagination.="<li class='current'><span>$counter</span></li>";
+                    } else {
+                                            $pagination.="<li><a href='".$path."$this->_instance=$counter"."$ext'>$counter</a></li>";
+                    }
                 }
-            }
-            elseif ($lastpage > 5 + ($adjacents * 2))
+            } elseif ($lastpage > 5 + ($adjacents * 2))
             {
                 if ($this->_page < 1 + ($adjacents * 2))
                 {
                     for ($counter=1; $counter < 4 + ($adjacents * 2); $counter++)
                     {
-                        if ($counter == $this->_page)
-                            $pagination.="<li class='current'><span>$counter</span></li>";
-                        else
-                            $pagination.="<li><a href='".$path."$this->_instance=$counter"."$ext'>$counter</a></li>";
+                        if ($counter == $this->_page) {
+                                                    $pagination.="<li class='current'><span>$counter</span></li>";
+                        } else {
+                                                    $pagination.="<li><a href='".$path."$this->_instance=$counter"."$ext'>$counter</a></li>";
+                        }
                     }
                     $pagination.="...";
                     $pagination.="<li><a href='".$path."$this->_instance=$lpm1"."$ext'>$lpm1</a></li>";
                     $pagination.="<li><a href='".$path."$this->_instance=$lastpage"."$ext'>$lastpage</a></li>";
-                }
-                elseif ($lastpage - ($adjacents * 2) > $this->_page && $this->_page > ($adjacents * 2))
+                } elseif ($lastpage - ($adjacents * 2) > $this->_page && $this->_page > ($adjacents * 2))
                 {
                     $pagination.="<li><a href='".$path."$this->_instance=1"."$ext'>1</a></li>";
                     $pagination.="<li><a href='".$path."$this->_instance=2"."$ext'>2</a></li>";
                     $pagination.="...";
                     for ($counter=$this->_page - $adjacents; $counter <= $this->_page + $adjacents; $counter++)
                     {
-                        if ($counter == $this->_page)
-                            $pagination.="<li class='current'><span>$counter</span></li>";
-                        else
-                            $pagination.="<li><a href='".$path."$this->_instance=$counter"."$ext'>$counter</a></li>";
+                        if ($counter == $this->_page) {
+                                                    $pagination.="<li class='current'><span>$counter</span></li>";
+                        } else {
+                                                    $pagination.="<li><a href='".$path."$this->_instance=$counter"."$ext'>$counter</a></li>";
+                        }
                     }
                     $pagination.="..";
                     $pagination.="<li><a href='".$path."$this->_instance=$lpm1"."$ext'>$lpm1</a></li>";
                     $pagination.="<li><a href='".$path."$this->_instance=$lastpage"."$ext'>$lastpage</a></li>";
-                }
-                else
+                } else
                 {
                     $pagination.="<li><a href='".$path."$this->_instance=1"."$ext'>1</a></li>";
                     $pagination.="<li><a href='".$path."$this->_instance=2"."$ext'>2</a></li>";
                     $pagination.="..";
                     for ($counter=$lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++)
                     {
-                        if ($counter == $this->_page)
-                            $pagination.="<li class='current'><span>$counter</span></li>";
-                        else
-                            $pagination.="<li><a href='".$path."$this->_instance=$counter"."$ext'>$counter</a></li>";
+                        if ($counter == $this->_page) {
+                                                    $pagination.="<li class='current'><span>$counter</span></li>";
+                        } else {
+                                                    $pagination.="<li><a href='".$path."$this->_instance=$counter"."$ext'>$counter</a></li>";
+                        }
                     }
                 }
             }
 
-            if ($this->_page < $counter - 1)
-                $pagination.="<li class='next'><a href='".$path."$this->_instance=$next"."$ext'>>></a></li>";
-            else
-                $pagination.="<li class='next disabled'><span class='disabled'>>></span></li>";
+            if ($this->_page < $counter - 1) {
+                            $pagination.="<li class='next'><a href='".$path."$this->_instance=$next"."$ext'>>></a></li>";
+            } else {
+                            $pagination.="<li class='next disabled'><span class='disabled'>>></span></li>";
+            }
             $pagination.="</ul>\n";
         }
 

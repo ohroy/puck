@@ -35,18 +35,18 @@ function get_client_ip($type=0, $adv=true)
     return $ip[$type];
 }
 //2为直接输出数组
-function show_json(array $arr,$type=2)
+function show_json(array $arr, $type=2)
 {
 
-    if(isset($arr['status']) && $type==2){
+    if (isset($arr['status']) && $type == 2) {
         $ret=$arr;
     }
-    else{
-        $ret['status'] = $type;
-        $ret['data'] = $arr;
+    else {
+        $ret['status']=$type;
+        $ret['data']=$arr;
     }
 
-    $obj = json_encode($ret);
+    $obj=json_encode($ret);
     header('Content-Type: application/json');
     echo $obj;
     exit();
@@ -54,14 +54,14 @@ function show_json(array $arr,$type=2)
 
 function success($arr)
 {
-    show_json($arr,1);
+    show_json($arr, 1);
 }
 
 function error($arr)
 {
-    show_json($arr,0);
+    show_json($arr, 0);
 }
-function not_found($str='page not found,that is all we know!'){
+function not_found($str='page not found,that is all we know!') {
     header('HTTP/1.1 404 Not Found');
     header("status: 404 Not Found");
     exit($str);
@@ -69,35 +69,30 @@ function not_found($str='page not found,that is all we know!'){
 
 
 /**
-
  * 数据签名认证
-
  * @param  array  $data 被认证的数据
-
  * @return string       签名
-
  * @author 麦当苗儿 <zuojiazi@vip.qq.com>
-
  */
 function data_auth_sign($data) {
     //数据类型检测
 
-    if(!is_array($data)){
+    if (!is_array($data)) {
 
-        $data = (array)$data;
+        $data=(array) $data;
     }
     ksort($data); //排序
-    $code = http_build_query($data); //url编码并生成query字符串
-    $sign = sha1($code); //生成签名
+    $code=http_build_query($data); //url编码并生成query字符串
+    $sign=sha1($code); //生成签名
     return $sign;
 }
 /**
  * session管理函数
- * @param string|array $name session名称 如果为数组则表示进行session设置
+ * @param string $name session名称 如果为数组则表示进行session设置
  * @param mixed $value session值
  * @return mixed
  */
-function session($name = '', $value = '') {
+function session($name='', $value='') {
     if (is_array($name)) {
 
         if (isset($name['id'])) {
@@ -149,16 +144,16 @@ function session($name = '', $value = '') {
                 session_start();
             } elseif ('[destroy]' == $name) {
                 // 销毁session
-                $_SESSION = array();
+                $_SESSION=array();
                 session_unset();
                 session_destroy();
             } elseif ('[regenerate]' == $name) {
                 // 重新生成id
                 session_regenerate_id();
             }
-        }else {
+        } else {
             if (strpos($name, '.')) {
-                list($name1, $name2) = explode('.', $name);
+                list($name1, $name2)=explode('.', $name);
                 return isset($_SESSION[$name1][$name2]) ? $_SESSION[$name1][$name2] : null;
             } else {
                 return isset($_SESSION[$name]) ? $_SESSION[$name] : null;
@@ -167,7 +162,7 @@ function session($name = '', $value = '') {
     } elseif (is_null($value)) {
         // 删除session
         if (strpos($name, '.')) {
-            list($name1, $name2) = explode('.', $name);
+            list($name1, $name2)=explode('.', $name);
             unset($_SESSION[$name1][$name2]);
         } else {
             unset($_SESSION[$name]);
@@ -175,30 +170,30 @@ function session($name = '', $value = '') {
     } else {
         // 设置session
         if (strpos($name, '.')) {
-            list($name1, $name2) = explode('.', $name);
-            $_SESSION[$name1][$name2] = $value;
+            list($name1, $name2)=explode('.', $name);
+            $_SESSION[$name1][$name2]=$value;
         } else {
-            $_SESSION[$name] = $value;
+            $_SESSION[$name]=$value;
         }
     }
     return null;
 }
 
 
-function admin_is_login(){
-    $user = session('admin_user_auth');
+function admin_is_login() {
+    $user=session('admin_user_auth');
     if (empty($user)) {
         return 0;
     } else {
         $auth_sign=session('admin_user_auth_sign');
-        if(data_auth_sign($user)!=$auth_sign){
+        if (data_auth_sign($user) != $auth_sign) {
             return 0;
         }
         return $user['uid'];
     }
 }
-function json($str){
-    $obj = json_encode($str,JSON_UNESCAPED_UNICODE);
+function json($str) {
+    $obj=json_encode($str, JSON_UNESCAPED_UNICODE);
     header('Content-Type: application/json');
     echo $obj;
 }
@@ -210,20 +205,20 @@ function json($str){
  * @param integer       $flags htmlspecialchars flags
  * @return void|string
  */
-function dump($var, $echo = true, $label = null, $flags = ENT_SUBSTITUTE)
+function dump($var, $echo=true, $label=null, $flags=ENT_SUBSTITUTE)
 {
-    $label = (null === $label) ? '' : rtrim($label) . ':';
+    $label=(null === $label) ? '' : rtrim($label).':';
     ob_start();
     var_dump($var);
-    $output = ob_get_clean();
-    $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
+    $output=ob_get_clean();
+    $output=preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
     if (IS_CLI) {
-        $output = PHP_EOL . $label . $output . PHP_EOL;
+        $output=PHP_EOL.$label.$output.PHP_EOL;
     } else {
         if (!extension_loaded('xdebug')) {
-            $output = htmlspecialchars($output, $flags);
+            $output=htmlspecialchars($output, $flags);
         }
-        $output = '<pre>' . $label . $output . '</pre>';
+        $output='<pre>'.$label.$output.'</pre>';
     }
     if ($echo) {
         echo($output);
@@ -248,99 +243,99 @@ function dump($var, $echo = true, $label = null, $flags = ENT_SUBSTITUTE)
  * @param mixed $datas 要获取的额外数据源
  * @return mixed
  */
-function I($name, $default = '', $filter = null, $datas = null)
+function I($name, $default='', $filter=null, $datas=null)
 {
-    static $_PUT = null;
+    static $_PUT=null;
     if (strpos($name, '/')) {
         // 指定修饰符
-        list($name, $type) = explode('/', $name, 2);
-    } else{
+        list($name, $type)=explode('/', $name, 2);
+    } else {
         // 默认强制转换为字符串
-        $type = 's';
+        $type='s';
     }
     if (strpos($name, '.')) {
         // 指定参数来源
-        list($method, $name) = explode('.', $name, 2);
+        list($method, $name)=explode('.', $name, 2);
     } else {
         // 默认为自动判断
-        $method = 'param';
+        $method='param';
     }
     switch (strtolower($method)) {
         case 'get':
-            $input = &$_GET;
+            $input=&$_GET;
             break;
         case 'post':
-            $input = &$_POST;
+            $input=&$_POST;
             break;
         case 'put':
             if (is_null($_PUT)) {
                 parse_str(file_get_contents('php://input'), $_PUT);
             }
-            $input = $_PUT;
+            $input=$_PUT;
             break;
         case 'param':
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'POST':
-                    $input = $_POST;
+                    $input=$_POST;
                     break;
                 case 'PUT':
                     if (is_null($_PUT)) {
                         parse_str(file_get_contents('php://input'), $_PUT);
                     }
-                    $input = $_PUT;
+                    $input=$_PUT;
                     break;
                 default:
-                    $input = $_GET;
+                    $input=$_GET;
             }
             break;
         case 'path':
-            $input = array();
+            $input=array();
             if (!empty($_SERVER['PATH_INFO'])) {
-                $depr  = C('URL_PATHINFO_DEPR');
-                $input = explode($depr, trim($_SERVER['PATH_INFO'], $depr));
+                $depr=C('URL_PATHINFO_DEPR');
+                $input=explode($depr, trim($_SERVER['PATH_INFO'], $depr));
             }
             break;
         case 'request':
-            $input = &$_REQUEST;
+            $input=&$_REQUEST;
             break;
         case 'session':
-            $input = &$_SESSION;
+            $input=&$_SESSION;
             break;
         case 'cookie':
-            $input = &$_COOKIE;
+            $input=&$_COOKIE;
             break;
         case 'server':
-            $input = &$_SERVER;
+            $input=&$_SERVER;
             break;
         case 'globals':
-            $input = &$GLOBALS;
+            $input=&$GLOBALS;
             break;
         case 'data':
-            $input = &$datas;
+            $input=&$datas;
             break;
         default:
             return null;
     }
     if ('' == $name) {
         // 获取全部变量
-        $data    = $input;
-        $filters = isset($filter) ? $filter : 'htmlspecialchars';
+        $data=$input;
+        $filters=isset($filter) ? $filter : 'htmlspecialchars';
         if ($filters) {
             if (is_string($filters)) {
-                $filters = explode(',', $filters);
+                $filters=explode(',', $filters);
             }
-            else if (is_array($filters)){
+            else if (is_array($filters)) {
                 foreach ($filters as $filter) {
-                    $data = array_map_recursive($filter, $data); // 参数过滤
+                    $data=array_map_recursive($filter, $data); // 参数过滤
                 }
-            }else{
+            } else {
                 throw new \RuntimeException('$filters must be an array or string.');
             }
         }
     } elseif (isset($input[$name])) {
         // 取值操作
-        $data    = $input[$name];
-        $filters = isset($filter) ? $filter : 'htmlspecialchars';
+        $data=$input[$name];
+        $filters=isset($filter) ? $filter : 'htmlspecialchars';
         if ($filters) {
             if (is_string($filters)) {
                 if (0 === strpos($filters, '/')) {
@@ -349,19 +344,19 @@ function I($name, $default = '', $filter = null, $datas = null)
                         return isset($default) ? $default : null;
                     }
                 } else {
-                    $filters = explode(',', $filters);
+                    $filters=explode(',', $filters);
                 }
             } elseif (is_int($filters)) {
-                $filters = array($filters);
+                $filters=array($filters);
             }
 
             if (is_array($filters)) {
                 foreach ($filters as $filter) {
-                    $filter = trim($filter);
+                    $filter=trim($filter);
                     if (function_exists($filter)) {
-                        $data = is_array($data) ? array_map_recursive($filter, $data) : $filter($data); // 参数过滤
+                        $data=is_array($data) ? array_map_recursive($filter, $data) : $filter($data); // 参数过滤
                     } else {
-                        $data = filter_var($data, is_int($filter) ? $filter : filter_id($filter));
+                        $data=filter_var($data, is_int($filter) ? $filter : filter_id($filter));
                         if (false === $data) {
                             return isset($default) ? $default : null;
                         }
@@ -372,34 +367,34 @@ function I($name, $default = '', $filter = null, $datas = null)
         if (!empty($type)) {
             switch (strtolower($type)) {
                 case 'a':    // 数组
-                    $data = (array) $data;
+                    $data=(array) $data;
                     break;
                 case 'd':    // 数字
-                    $data = (int) $data;
+                    $data=(int) $data;
                     break;
                 case 'f':    // 浮点
-                    $data = (float) $data;
+                    $data=(float) $data;
                     break;
                 case 'b':    // 布尔
-                    $data = (boolean) $data;
+                    $data=(boolean) $data;
                     break;
                 case 's':// 字符串
                 default:
-                    $data = (string) $data;
+                    $data=(string) $data;
             }
         }
     } else {
         // 变量默认值
-        $data = isset($default) ? $default : null;
+        $data=isset($default) ? $default : null;
     }
     is_array($data) && array_walk_recursive($data, 'think_filter');
     return $data;
 }
 function array_map_recursive($filter, $data)
 {
-    $result = array();
+    $result=array();
     foreach ($data as $key => $val) {
-        $result[$key] = is_array($val)
+        $result[$key]=is_array($val)
             ? array_map_recursive($filter, $val)
             : call_user_func($filter, $val);
     }
@@ -414,6 +409,11 @@ function think_filter(&$value)
         $value .= ' ';
     }
 }
+/**
+ * @param string $name
+ *
+ * @return string|null
+ */
 function config($name=null,$value=null,$default=null){
     $config=\puck\Conf::load();
     if ($name===null){
@@ -431,9 +431,9 @@ function config($name=null,$value=null,$default=null){
  * @param integer $type 转换类型
  * @return string
  */
-function parse_name($name, $type = 0) {
+function parse_name($name, $type=0) {
     if ($type) {
-        return ucfirst(preg_replace_callback('/_([a-zA-Z])/', function ($match) {return strtoupper($match[1]);}, $name));
+        return ucfirst(preg_replace_callback('/_([a-zA-Z])/', function($match) {return strtoupper($match[1]); }, $name));
     } else {
         return strtolower(trim(preg_replace("/[A-Z]/", "_\\0", $name), "_"));
     }
