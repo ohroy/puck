@@ -4,48 +4,48 @@ namespace puck;
 class Controller
 {
 
-    protected $viewPath = '';
+    protected $viewPath='';
     private $twig;
-    private $tVar = array();
+    private $tVar=array();
     protected $title='';
     public function __construct()
     {
-        $loader = new \Twig_Loader_Filesystem(BASE_PATH . $this->viewPath);
-        $twig = new \Twig_Environment($loader, array(
+        $loader=new \Twig_Loader_Filesystem(BASE_PATH.$this->viewPath);
+        $twig=new \Twig_Environment($loader, array(
             'debug' => DEBUG,
-            'cache' => BASE_PATH . '/cache',
+            'cache' => BASE_PATH.'/cache',
         ));
-        $this->twig = $twig;
+        $this->twig=$twig;
         $this->initTwigFilter();
         $this->initTwigFunction();
-        $this->db = \MysqliDb::getInstance();
+        $this->db=\MysqliDb::getInstance();
     }
-    private function initTwigFilter(){
-        $filter = new \Twig_SimpleFilter('long2ip', 'long2ip');
+    private function initTwigFilter() {
+        $filter=new \Twig_SimpleFilter('long2ip', 'long2ip');
         $this->twig->addFilter($filter);
     }
-    private function initTwigFunction(){
-        $function = new \Twig_SimpleFunction('I','I');
+    private function initTwigFunction() {
+        $function=new \Twig_SimpleFunction('I', 'I');
         $this->twig->addFunction($function);
     }
 
     /**
      * @param string $name
      */
-    protected function assign($name, $value = '')
+    protected function assign($name, $value='')
     {
         if (is_array($name)) {
-            $this->tVar = array_merge($this->tVar, $name);
+            $this->tVar=array_merge($this->tVar, $name);
         } else {
-            $this->tVar[$name] = $value;
+            $this->tVar[$name]=$value;
         }
     }
 
-    protected function show($tmpPath = '')
+    protected function show($tmpPath='')
     {
         if ($tmpPath == '') {
             if (defined("CONTROLLER_NAME") && defined("ACTION_NAME")) {
-                $tmpPath = parse_name(CONTROLLER_NAME) . '/' . parse_name(ACTION_NAME);
+                $tmpPath=parse_name(CONTROLLER_NAME).'/'.parse_name(ACTION_NAME);
             } else {
                 show_json($this->tVar);
             }

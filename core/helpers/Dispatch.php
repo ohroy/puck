@@ -6,49 +6,49 @@ namespace puck\helpers;
 
 class Dispatch
 {
-    static public function init(){
-        if(!IS_CLI){
+    static public function init() {
+        if (!IS_CLI) {
             define('NOW_TIME', $_SERVER['REQUEST_TIME']);
             define('REQUEST_METHOD', $_SERVER['REQUEST_METHOD']);
             define('IS_GET', REQUEST_METHOD == 'GET' ? true : false);
             define('IS_POST', REQUEST_METHOD == 'POST' ? true : false);
             define('IS_PUT', REQUEST_METHOD == 'PUT' ? true : false);
             define('IS_DELETE', REQUEST_METHOD == 'DELETE' ? true : false);
-            define('IS_AJAX', ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ) ? true : false);
+            define('IS_AJAX', ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) ? true : false);
             define('__SELF__', strip_tags($_SERVER['REQUEST_URI']));
         }
     }
-    static public function dispatch($path='',$app='\\admin') {
+    static public function dispatch($path='', $app='\\admin') {
         self::init();
-        if($path==''){
+        if ($path == '') {
             $path=array();
-        } else{
-            $path=str_replace('-','_',$path);
-            $path   = explode('/',$path);
+        } else {
+            $path=str_replace('-', '_', $path);
+            $path=explode('/', $path);
         }
 
-        if(count($path)==0){
-            array_push($path,'home');
-            array_push($path,'index');
-        } elseif (count($path)==1){
-            array_push($path,'index');
+        if (count($path) == 0) {
+            array_push($path, 'home');
+            array_push($path, 'index');
+        } elseif (count($path) == 1) {
+            array_push($path, 'index');
         }
-        if(!empty($path)){
+        if (!empty($path)) {
             $tmpAction=array_pop($path);
             $tmpAction=preg_replace('/\.(html|aspx|do|php|htm|h5|api)$/i', '', $tmpAction);
-            $tmpAction=parse_name($tmpAction,1);
+            $tmpAction=parse_name($tmpAction, 1);
             $var['a']=$tmpAction;
         }
-        define('ACTION_NAME',$var['a']);
+        define('ACTION_NAME', $var['a']);
         if (!preg_match('/^[A-Za-z](\w)*$/', ACTION_NAME)) {
             die("error action");
         }
-        if(!empty($path)){
+        if (!empty($path)) {
             $tmpController=array_pop($path);
-            $tmpController=parse_name($tmpController,1);
+            $tmpController=parse_name($tmpController, 1);
             $var['c']=$tmpController;
         }
-        define('CONTROLLER_NAME',$var['c']);
+        define('CONTROLLER_NAME', $var['c']);
         if (!preg_match('/^[A-Za-z](\/|\w)*$/', CONTROLLER_NAME)) {
             die("error controller");
         }
@@ -56,24 +56,24 @@ class Dispatch
         if (!class_exists($class)) {
             not_found('this controller is can not work now!');
         }
-        $class= new $class();
-        if (!method_exists($class,ACTION_NAME)) {
+        $class=new $class();
+        if (!method_exists($class, ACTION_NAME)) {
             not_found();
         }
         self::param();
-        self::exec($class,ACTION_NAME);
+        self::exec($class, ACTION_NAME);
     }
 
     /**
      * @param string $function
      */
-    static public function exec($class,$function){
-        $method = new \ReflectionMethod($class, $function);
+    static public function exec($class, $function) {
+        $method=new \ReflectionMethod($class, $function);
         if ($method->isPublic() && !$method->isStatic()) {
-            $refClass = new \ReflectionClass($class);
+            $refClass=new \ReflectionClass($class);
             //前置方法
-            if ($refClass->hasMethod('_before_' . $function)) {
-                $before = $refClass->getMethod('_before_' . $function);
+            if ($refClass->hasMethod('_before_'.$function)) {
+                $before=$refClass->getMethod('_before_'.$function);
                 if ($before->isPublic()) {
                     $before->invoke($class);
                 }
