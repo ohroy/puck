@@ -59,6 +59,10 @@ class Model
     public function update($data){
         return $this->db->update($this->table,$data);
     }
+
+    /**
+     * @param string $field
+     */
     public function field($field){
         $this->field=$field;
         return $this;

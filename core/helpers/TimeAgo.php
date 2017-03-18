@@ -10,15 +10,15 @@ namespace puck\helpers;
 class TimeAgo
 {
     // defines the number of seconds per "unit"
-    private $secondsPerMinute = 60;
-    private $secondsPerHour = 3600;
-    private $secondsPerDay = 86400;
-    private $secondsPerMonth = 2592000;
-    private $secondsPerYear = 31536000; // 31622400 seconds on leap years though...
+    private $secondsPerMinute=60;
+    private $secondsPerHour=3600;
+    private $secondsPerDay=86400;
+    private $secondsPerMonth=2592000;
+    private $secondsPerYear=31536000; // 31622400 seconds on leap years though...
     private $timezone;
     private $previousTimezone;
 
-    private static $timeAgoStrings = array(
+    private static $timeAgoStrings=array(
         'aboutOneDay' => "1 天前",
         'aboutOneHour' => "大约 1 小时前",
         'aboutOneMonth' => "大约 1 个月前",
@@ -36,9 +36,9 @@ class TimeAgo
      * TimeAgo constructor.
      * @param null|DateTimeZone $timezone the timezone to use (uses system if none is given)
      */
-    public function __construct($timezone = null)
+    public function __construct($timezone=null)
     {
-        $this->timezone = $timezone;
+        $this->timezone=$timezone;
         // sets the default timezone
         $this->changeTimezone();
     }
@@ -50,6 +50,10 @@ class TimeAgo
         $this->restoreTimezone();
     }
 
+    /**
+     * @param integer $past
+     * @param integer $now
+     */
     public function inStamp($past, $now = null) {
         if($now==null){
             $now=time();
@@ -139,18 +143,18 @@ class TimeAgo
      * @param string $now the current time, defaults to now (can be an other time though)
      * @return string the difference in spoken format, e.g. 1 day ago
      */
-    public function inWords($past, $now = "now")
+    public function inWords($past, $now="now")
     {
 
         // finds the past in datetime
-        $past = strtotime($past);
+        $past=strtotime($past);
         // finds the current datetime
-        $now = strtotime($now);
+        $now=strtotime($now);
         if ($this->isPastEmpty($past)) {
             $past=0;
             $past=0;
         }
-        return $this->inStamp($past,$now);
+        return $this->inStamp($past, $now);
     }
 
     /**
@@ -161,23 +165,23 @@ class TimeAgo
      * @param string $now the "now" time to parse
      * @return array the difference in dates, using the two dates
      */
-    public function dateDifference($past, $now = "now")
+    public function dateDifference($past, $now="now")
     {
         // initializes the placeholders for the different "times"
-        $seconds = 0;
-        $minutes = 0;
-        $hours = 0;
-        $days = 0;
-        $months = 0;
-        $years = 0;
+        $seconds=0;
+        $minutes=0;
+        $hours=0;
+        $days=0;
+        $months=0;
+        $years=0;
 
         // finds the past in datetime
-        $past = strtotime($past);
+        $past=strtotime($past);
         // finds the current datetime
-        $now = strtotime($now);
+        $now=strtotime($now);
 
         // calculates the difference
-        $timeDifference = $now - $past;
+        $timeDifference=$now - $past;
 
         // starts determining the time difference
         if ($timeDifference >= 0) {
@@ -185,46 +189,46 @@ class TimeAgo
                 // finds the number of years
                 case ($timeDifference >= $this->secondsPerYear):
                     // uses floor to remove decimals
-                    $years = floor($timeDifference / $this->secondsPerYear);
+                    $years=floor($timeDifference / $this->secondsPerYear);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($years * $this->secondsPerYear);
+                    $timeDifference=$timeDifference - ($years * $this->secondsPerYear);
 
                 // finds the number of months
                 case ($timeDifference >= $this->secondsPerMonth && $timeDifference <= ($this->secondsPerYear - 1)):
                     // uses floor to remove decimals
-                    $months = floor($timeDifference / $this->secondsPerMonth);
+                    $months=floor($timeDifference / $this->secondsPerMonth);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($months * $this->secondsPerMonth);
+                    $timeDifference=$timeDifference - ($months * $this->secondsPerMonth);
 
                 // finds the number of days
                 case ($timeDifference >= $this->secondsPerDay && $timeDifference <= ($this->secondsPerYear - 1)):
                     // uses floor to remove decimals
-                    $days = floor($timeDifference / $this->secondsPerDay);
+                    $days=floor($timeDifference / $this->secondsPerDay);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($days * $this->secondsPerDay);
+                    $timeDifference=$timeDifference - ($days * $this->secondsPerDay);
 
                 // finds the number of hours
                 case ($timeDifference >= $this->secondsPerHour && $timeDifference <= ($this->secondsPerDay - 1)):
                     // uses floor to remove decimals
-                    $hours = floor($timeDifference / $this->secondsPerHour);
+                    $hours=floor($timeDifference / $this->secondsPerHour);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($hours * $this->secondsPerHour);
+                    $timeDifference=$timeDifference - ($hours * $this->secondsPerHour);
 
                 // finds the number of minutes
                 case ($timeDifference >= $this->secondsPerMinute && $timeDifference <= ($this->secondsPerHour - 1)):
                     // uses floor to remove decimals
-                    $minutes = floor($timeDifference / $this->secondsPerMinute);
+                    $minutes=floor($timeDifference / $this->secondsPerMinute);
                     // saves the amount of seconds left
-                    $timeDifference = $timeDifference - ($minutes * $this->secondsPerMinute);
+                    $timeDifference=$timeDifference - ($minutes * $this->secondsPerMinute);
 
                 // finds the number of seconds
                 case ($timeDifference <= ($this->secondsPerMinute - 1)):
                     // seconds is just what there is in the timeDifference variable
-                    $seconds = $timeDifference;
+                    $seconds=$timeDifference;
             }
         }
 
-        $difference = [
+        $difference=[
             "years" => $years,
             "months" => $months,
             "days" => $days,
@@ -242,7 +246,7 @@ class TimeAgo
      * @param string $time the time to add to the translated text.
      * @return string the translated label text including the time.
      */
-    protected function translate($label, $time = '')
+    protected function translate($label, $time='')
     {
         // handles a usecase introduced in #18, where a new translation was added.
         // This would cause an array-out-of-bound exception, since the index does not
@@ -260,9 +264,9 @@ class TimeAgo
      */
     protected function changeTimezone()
     {
-        $this->previousTimezone = false;
+        $this->previousTimezone=false;
         if ($this->timezone) {
-            $this->previousTimezone = date_default_timezone_get();
+            $this->previousTimezone=date_default_timezone_get();
             date_default_timezone_set($this->timezone);
         }
     }
@@ -274,7 +278,7 @@ class TimeAgo
     {
         if ($this->previousTimezone) {
             date_default_timezone_set($this->previousTimezone);
-            $this->previousTimezone = false;
+            $this->previousTimezone=false;
         }
     }
 

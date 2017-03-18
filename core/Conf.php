@@ -11,8 +11,8 @@ use Noodlehaus\Config;
 
 class Conf {
     static $config=false;
-    static public function load(){
-        if(!self::$config){
+    static public function load() {
+        if (!self::$config) {
             self::$config=Config::load(BASE_PATH.'/app/conf');
         }
         return self::$config;
