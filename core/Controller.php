@@ -28,6 +28,10 @@ class Controller
         $function = new \Twig_SimpleFunction('I','I');
         $this->twig->addFunction($function);
     }
+
+    /**
+     * @param string $name
+     */
     protected function assign($name, $value = '')
     {
         if (is_array($name)) {
@@ -49,8 +53,8 @@ class Controller
         header('Content-Type:text/html; charset=utf-8');
         header('Cache-control: private'); // 页面缓存控制
         header('X-Powered-By:ViviAnAuthSystem');
-        $this->assign('title',$this->title);
-        echo $this->twig->render($tmpPath . '.' . TempExt, $this->tVar);
+        $this->assign('title', $this->title);
+        echo $this->twig->render($tmpPath.'.'.TempExt, $this->tVar);
         die();
     }
 }

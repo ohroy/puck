@@ -22,7 +22,7 @@ class Dispatch
         self::init();
         if($path==''){
             $path=array();
-        }else{
+        } else{
             $path=str_replace('-','_',$path);
             $path   = explode('/',$path);
         }
@@ -30,8 +30,7 @@ class Dispatch
         if(count($path)==0){
             array_push($path,'home');
             array_push($path,'index');
-        }
-        elseif (count($path)==1){
+        } elseif (count($path)==1){
             array_push($path,'index');
         }
         if(!empty($path)){
@@ -64,6 +63,10 @@ class Dispatch
         self::param();
         self::exec($class,ACTION_NAME);
     }
+
+    /**
+     * @param string $function
+     */
     static public function exec($class,$function){
         $method = new \ReflectionMethod($class, $function);
         if ($method->isPublic() && !$method->isStatic()) {
@@ -78,8 +81,8 @@ class Dispatch
             //方法本身
             $response=$method->invoke($class);
             //后置方法
-            if ($refClass->hasMethod('_after_' . $function)) {
-                $after = $refClass->getMethod('_after_' . $function);
+            if ($refClass->hasMethod('_after_'.$function)) {
+                $after=$refClass->getMethod('_after_'.$function);
                 if ($after->isPublic()) {
                     $after->invoke($class);
                 }
@@ -87,17 +90,17 @@ class Dispatch
             self::render($response);
         }
     }
-    static public function param(){
-        if(!IS_CLI){
+    static public function param() {
+        if (!IS_CLI) {
             $vars=array();
-            parse_str(parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY),$vars);
+            parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $vars);
             $_GET=$vars;
         }
 
     }
-    static public function render($res){
+    static public function render($res) {
         $response=$res;
-        if(is_array($res)){
+        if (is_array($res)) {
             $response=json($res);
         }
         echo $response;
