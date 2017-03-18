@@ -1,4 +1,5 @@
 <?php
+use puck\Container;
 
 /**
  * 获取客户端IP地址
@@ -436,5 +437,21 @@ function parse_name($name, $type=0) {
         return ucfirst(preg_replace_callback('/_([a-zA-Z])/', function($match) {return strtoupper($match[1]); }, $name));
     } else {
         return strtolower(trim(preg_replace("/[A-Z]/", "_\\0", $name), "_"));
+    }
+}
+
+if (! function_exists('app')) {
+    /**
+     * Get the available container instance.
+     *
+     * @param  string  $make
+     * @return mixed|\Laravel\Lumen\Application
+     */
+    function app($make = null)
+    {
+        if (is_null($make)) {
+            return Container::getInstance();
+        }
+        return Container::getInstance()->make($make);
     }
 }

@@ -7,7 +7,9 @@
 namespace puck;
 
 
-class Container implements \ArrayAccess
+use ArrayAccess;
+
+class Container implements ArrayAccess
 {
     // 容器对象实例
     protected static $instance;
@@ -19,7 +21,7 @@ class Container implements \ArrayAccess
     /**
      * 获取当前容器的实例（单例）
      * @access public
-     * @return object
+     * @return \puck\Container
      */
     public static function getInstance()
     {
@@ -28,6 +30,17 @@ class Container implements \ArrayAccess
         }
 
         return static::$instance;
+    }
+
+
+    /**
+     * 设置共享容器实例
+     * @param ArrayAccess $container
+     * @return static
+     */
+    public static function setInstance(ArrayAccess $container)
+    {
+        return static::$instance=$container;
     }
 
     /**
