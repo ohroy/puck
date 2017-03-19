@@ -1,5 +1,6 @@
 <?php
 use puck\Container;
+use puck\tools\Str;
 
 /**
  * 获取客户端IP地址
@@ -442,10 +443,10 @@ function parse_name($name, $type=0) {
 
 if (! function_exists('app')) {
     /**
-     * Get the available container instance.
+     * 获取容器实例
      *
      * @param  string  $make
-     * @return mixed|\Laravel\Lumen\Application
+     * @return mixed|\puck\App
      */
     function app($make = null)
     {
@@ -453,5 +454,40 @@ if (! function_exists('app')) {
             return Container::getInstance();
         }
         return Container::getInstance()->make($make);
+    }
+}
+
+if (! function_exists('env')) {
+    /**
+     * 获取环境变量
+     *
+     * @param  string  $key
+     * @param  mixed   $default
+     * @return mixed
+     */
+    function env($key, $default = null)
+    {
+        $value = getenv($key);
+        if ($value === false) {
+            return value($default);
+        }
+        switch (strtolower($value)) {
+            case 'true':
+            case '(true)':
+                return true;
+            case 'false':
+            case '(false)':
+                return false;
+            case 'empty':
+            case '(empty)':
+                return '';
+            case 'null':
+            case '(null)':
+                return;
+        }
+        if (Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
+            return substr($value, 1, -1);
+        }
+        return $value;
     }
 }
