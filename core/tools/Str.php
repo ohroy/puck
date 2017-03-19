@@ -24,6 +24,22 @@ class Str {
         return false;
     }
     /**
+     * 判断一个字符串是否以给定字符串开始
+     *
+     * @param  string  $haystack
+     * @param  string|array  $needles
+     * @return bool
+     */
+    public static function startsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if ($needle != '' && substr($haystack, 0, strlen($needle)) === (string) $needle) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
      * 判断一个字符串是否以给定字符串结尾
      *
      * @param  string  $haystack

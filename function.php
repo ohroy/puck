@@ -491,3 +491,15 @@ if (! function_exists('env')) {
         return $value;
     }
 }
+if (! function_exists('value')) {
+    /**
+     * 返回给定的表达式的结果
+     *
+     * @param  mixed  $value
+     * @return mixed
+     */
+    function value($value)
+    {
+        return $value instanceof Closure ? $value() : $value;
+    }
+}

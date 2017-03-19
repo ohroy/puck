@@ -7,5 +7,4 @@ define('BASE_PATH', PUBLIC_PATH.'/..');
 define('VENDOR_PATH', BASE_PATH.'/vendor');
 define('DEBUG',1);
 require VENDOR_PATH . '/autoload.php';
-require BASE_PATH.'/start.php';
-$app = new \puck\App();
+$app = new \puck\App(PUBLIC_PATH);
