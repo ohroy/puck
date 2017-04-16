@@ -16,3 +16,11 @@
 虽然取了一个英文名，但是不准备写英文文档了。  
 
 具体的还是[看文档](https://puck.zz173.com)吧，全中文的。
+
+## 鸣谢
+本框架使用或参考了以下开源组件，并遵循其开源协议。  
+排名不分先后。
+
+- [thinkphp](https://github.com/top-think/framework)
+- [laravel](https://github.com/laravel/framework)
+- [php-curl-class](https://github.com/php-curl-class/php-curl-class)

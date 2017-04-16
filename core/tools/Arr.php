@@ -310,6 +310,22 @@ class Arr {
 
         return array_keys($keys) !== $keys;
     }
+    /**
+     * Is Array Multidim
+     *
+     * @access public
+     * @param  $array
+     *
+     * @return boolean
+     */
+    public static function isMultidim($array)
+    {
+        if (!is_array($array)) {
+            return false;
+        }
+
+        return (bool)count(array_filter($array, 'is_array'));
+    }
 
     /**
      * Get a subset of the items from the given array.
