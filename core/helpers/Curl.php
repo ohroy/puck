@@ -10,7 +10,9 @@ use puck\tools\Arr;
 class Curl {
 
     const VERSION = '7.2.0';
-    const DEFAULT_TIMEOUT = 30;
+    const DEFAULT_TIMEOUT = 20;
+
+    public $retryCount = 3;
 
     public $curl;
     public $id = null;
@@ -363,8 +365,15 @@ class Curl {
         if ($ch === null) {
             $this->responseCookies = array();
             $this->call($this->beforeSendFunction);
-            $this->rawResponse = curl_exec($this->curl);
-            $this->curlErrorCode = curl_errno($this->curl);
+            $i=0;
+            while(1){
+                $this->rawResponse = curl_exec($this->curl);
+                $this->curlErrorCode = curl_errno($this->curl);
+                if($this->curlErrorCode==28 && $i++ < $this->retryCount){
+                    continue;
+                }
+                break;
+            }
             $this->curlErrorMessage = curl_error($this->curl);
         } else {
             $this->rawResponse = curl_multi_getcontent($ch);
@@ -1383,4 +1392,5 @@ class Curl {
         }
         return $response_headers;
     }
+
 }
