@@ -39,7 +39,5 @@ class CurlTest extends TestCase {
         $curl->setTimeout(100);
         $curl->get('https://api.map.baidu.com/geocoder?location=40,118&output=json');
         $this->assertFalse($curl->error);
-        $ret=json_decode($curl->response);
-        $this->assertEquals($ret->status,"OK");
     }
 }
