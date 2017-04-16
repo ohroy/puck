@@ -37,8 +37,13 @@ class App extends Container {
     }
 
     private function initEnv(){
-        $dotEnv = new Dotenv($this->basePath);
-        $dotEnv->load();
+        try{
+            $dotEnv = new Dotenv($this->basePath);
+            $dotEnv->load();
+        }
+        catch (\Dotenv\Exception\InvalidPathException $e){
+            die("环境配置文件`.env`没有被找到.");
+        }
         date_default_timezone_set(env('APP_TIMEZONE', 'Asia/Shanghai'));
         define('IS_CLI', $this->runningInConsole());
         define('IS_DEBUG',env('DEBUG',false));

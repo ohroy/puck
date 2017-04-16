@@ -124,8 +124,8 @@ class Route {
      * Runs the callback for the given request
      */
     public function dispatch() {
-
-        $current['uri'] = $this->request->path();
+        $uri=$this->request->path();
+        $current['uri'] = $uri?$uri:'/';
         $current['method'] = $this->request->method();
         # 第一种情况，直接命中
         if (isset($this->routes[$current['method'] . $current['uri']])) {
