@@ -369,7 +369,8 @@ class Curl {
             while(1){
                 $this->rawResponse = curl_exec($this->curl);
                 $this->curlErrorCode = curl_errno($this->curl);
-                if($this->curlErrorCode==28 && $i++ < $this->retryCount){
+                if(($this->curlErrorCode==28 ||$this->curlErrorCode==7)
+                    && $i++ < $this->retryCount){
                     continue;
                 }
                 break;
