@@ -21,7 +21,8 @@
     "joshcam/mysqli-database-class": "dev-master",
     "twig/twig":"~1.0",
     "overtrue/pinyin": "~3.0",
-    "vlucas/phpdotenv": "^2.4"
+    "vlucas/phpdotenv": "^2.4",
+    "imangazaliev/didom": "^1.9.1"
   },
   "require-dev": {
     "phpunit/phpunit": "6.*"

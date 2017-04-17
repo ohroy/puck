@@ -7,9 +7,6 @@ namespace puck;
 
 
 use Dotenv\Dotenv;
-use puck\Config;
-use puck\Route;
-use puck\tools\Arr;
 use Whoops\Run;
 
 class App extends Container {
@@ -31,9 +28,6 @@ class App extends Container {
         $this->initEnv();
         $this->initContainer();
         $this->initConfig();
-    }
-    private function initConfig(){
-        $this->configure('core');
     }
 
     private function initEnv(){
@@ -60,9 +54,15 @@ class App extends Container {
 
     }
 
-    public function run() {
-        $this->route->dispatch();
+    /**
+     * 判断是否是cli模式
+     *
+     * @return bool
+     */
+    public function runningInConsole() {
+        return php_sapi_name() == 'cli';
     }
+
     /**
      * 初始化容器
      */
@@ -74,37 +74,13 @@ class App extends Container {
         $this->instance('route',new Route($this->request));
         $this->bind('pinyin','\puck\helpers\PinYin');
         $this->bind('curl','\puck\helpers\Curl');
+        $this->bind('dom', '\puck\helpers\Dom');
     }
 
-    /**
-     * Get the base path for the application.
-     *
-     * @param  string|null  $path
-     * @return string
-     */
-    public function basePath($path = null)
-    {
-        if (isset($this->basePath)) {
-            return $this->basePath.($path ? '/'.$path : $path);
-        }
-
-        if ($this->runningInConsole()) {
-            $this->basePath = getcwd();
-        } else {
-            $this->basePath = realpath(getcwd().'/../');
-        }
-
-        return $this->basePath($path);
+    private function initConfig() {
+        $this->configure('core');
     }
-    /**
-     * 判断是否是cli模式
-     *
-     * @return bool
-     */
-    public function runningInConsole()
-    {
-        return php_sapi_name() == 'cli';
-    }
+
     /**
      * 加载一个配置文件
      *
@@ -123,7 +99,6 @@ class App extends Container {
             $this->make('config')->set($name, require $path);
         }
     }
-
 
     /**
      * 获取配置文件的路径。
@@ -153,5 +128,29 @@ class App extends Container {
                 return $path;
             }
         }
+    }
+
+    /**
+     * Get the base path for the application.
+     *
+     * @param  string|null $path
+     * @return string
+     */
+    public function basePath($path = null) {
+        if (isset($this->basePath)) {
+            return $this->basePath . ($path ? '/' . $path : $path);
+        }
+
+        if ($this->runningInConsole()) {
+            $this->basePath = getcwd();
+        } else {
+            $this->basePath = realpath(getcwd() . '/../');
+        }
+
+        return $this->basePath($path);
+    }
+
+    public function run() {
+        $this->route->dispatch();
     }
 }
