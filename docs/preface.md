@@ -38,3 +38,21 @@
 * 执行栈浅，性能优先。
 * 高度可定制。
 * 拟`thinkphp`语法，对国内用户友好。
+
+## 要求
+虽然本框架并没有什么特别的，理论上可运行与5.3+的`php`之上，但是为了性能及减少故障的发生，我们建议
+使用以下环境。
+
+- php7 + 
+- hhvm [可选]
+- mariadb[推荐]/mysql
+- nginx[推荐]/tengine/openresty/apache[不推荐]
+- composer 
+- centos[推荐]/或者其他的linux发行版/windows[不推荐]
+- jemalloc
+- redis
+
+由于php的`zval`改进，产生了巨大的性能提升，而且本框架的理念就是**要用就用最好的**，所以这里强烈推荐使用。    
+如果没有使用`php7`而使用的低版本`php`则强烈推荐`facebook`的`hhvm`来对`php`进行优化。  
+另外，在使用本框架之前，你可能得花一定的时间去学习[phpcomposer](http://docs.phpcomposer.com/).  
+如果你确定满足了以上条件，请继续，否则请先配置以上。不然接下来可能会导致一系列诡异的问题。  

@@ -32,15 +32,13 @@
 
 ## 目录结构
 ```tree
-├─app          
-│  ├─config         	
-│  │  ├─config.php      
+├─app             
 │  ├─controllers            
-│  │  ├─XxxController.php
+│  │  ├─Xxx.php
 │  ├─helpers            
-│  │  ├─XxxHelper.php
+│  │  ├─Xxx.php
 │  ├─models            
-│  │  ├─XxxModel.php
+│  │  ├─Xxx.php
 │  ├─views            
 │  │  ├─Xxx
 │  │  │  ├─yyy.twig
@@ -69,12 +67,11 @@ use \app\controllers\HomeController  as HomeController;
 ```json
   "autoload": {
         "psr-4": {
-          "export\\":"export",
           "app\\":"app",
-          "admin\\":"admin"
+          "api\\":"api"
         },
     "files": [
-      "export/functions/function.php"
+      "function.php"
     ]
   },
 ```

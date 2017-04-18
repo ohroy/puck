@@ -1,61 +1,30 @@
 # 路由
-`puck`的路由是由[Macaw](https://github.com/noahbuscher/Macaw)提供支持的。  
-这个路由只有一个文件，大小仅仅不超过5kb（带注释），然而逻辑却非常巧妙，完全符合我们的原则。  
-把整个网址当成一个字符串，然后用正则匹配，进行相应处理，十分的简单。  
+`puck`的路由是是一个轻量级的逻辑，原理是把把整个网址当成一个字符串，然后用正则匹配，进行相应处理，十分的简单。 
 
-## 路由模式
-
-我们将路由分为两种模式，一种是`简单模式`，另外一种则是`派遣模式`。  
-两者本质的区别在于调用方。  
-`简单模式`的路由逻辑处理由路由本身调用，即路由自己`new`对应的类，执行对象的方法，甚至自行执行闭包。
-即：
-
+框架在初始化时，已经注册过路由的实例。
+我们可以像首页那样，使用
 ```php
-$parts = explode('/',self::$callbacks[$route]);
-// Collect the last index of the array
-$last = end($parts);
-// Grab the controller name and method call
-$segments = explode('@',$last);
-// Instanitate controller
-$controller = new $segments[0]();
-// Call method
-$controller->{$segments[1]}();
+$app->route->get('/',function(){
+    echo "balabala";
+})
 ```
-`派遣模式`则是基于此扩展而来，我们在此基础之上，将所有的路由转发给一个固定的分发中心，然后再用反射的方式进行逻辑处理,这也是类似
-`thinkphp`的路由方式：
-
+也可以通过
 ```php
-$method = new \ReflectionMethod($class, $function);
-if ($method->isPublic() && !$method->isStatic()) {
-      $refClass = new \ReflectionClass($class);
-    //前置方法
-    if ($refClass->hasMethod('_before_' . $function)) {
-          $before = $refClass->getMethod('_before_' . $function);
-        if ($before->isPublic()) {
-              $before->invoke($class);
-        }
-
-    }
-        //方法本身
-        $method->invoke($class);
-        //后置方法
-        if ($refClass->hasMethod('_after_' . $function)) {
-              $after = $refClass->getMethod('_after_' . $function);
-            if ($after->isPublic()) {
-                  $after->invoke($class);
-            }
-        }
-    }
+app('route')->get('/',function(){
+  echo "balabala";
+})
 ```
-这样做的好处是可以方便后台的权限控制，以及前置后置方法等。弊端则是更为复杂的逻辑，url不够自由等。  
-因此，对于非必要的情况下，强烈建议使用一般路由。 
+相信聪明的你，已经发现了
+`app('route')`就是用来获取`route`的实例。
+
 
 ## 闭包路由
+
 ### 一般使用
 我们可以使用闭包的方式定义一些特殊需求的路由，而不需要执行控制器的操作方法了，例如：
 
 ```php
-Macaw::get('/', function() {
+app('route')->get('/', function() {
   echo 'Hello world!';
 });
 ```
@@ -64,7 +33,7 @@ Macaw::get('/', function() {
 闭包定义的时候支持参数传递，例如：
 
 ```php
-Macaw::get('/(:any)', function($slug) {
+app('route')->get('/(:any)', function($slug) {
   echo 'The slug is: ' . $slug;
 });
 ```
@@ -94,7 +63,7 @@ The slug is: hello
 因此，上面的例子即等同于
 
 ```php
-Macaw::get('/([^/]+)', function($slug) {
+app('route')->get('/([^/]+)', function($slug) {
   echo 'The slug is: ' . $slug;
 });
 ```
@@ -102,16 +71,16 @@ Macaw::get('/([^/]+)', function($slug) {
 因此我们可以自行以正则定义各种路由
 
 ```php
-Macaw::get('/^([1][358][0-9]{9})$', function($phoneNum) {
+app('route')->get('/^([1][358][0-9]{9})$', function($phoneNum) {
   echo 'yeah,the phone num is: ' . $phoneNum;
 });
 ```
 ## 控制器支持
 
 ```php
-Macaw::get('/', 'Controllers\demo@index');
-Macaw::get('page', 'Controllers\demo@page');
-Macaw::get('view/(:num)', 'Controllers\demo@view');
+app('route')->get('/', 'Controllers\demo@index');
+app('route')->get('page', 'Controllers\demo@page');
+app('route')->get('view/(:num)', 'Controllers\demo@view');
 ```
 则分别对应以下类的各个方法：
 
@@ -144,20 +113,20 @@ class Demo {
 当没有路由可以匹配时，可以返回预先定义的默认路由。
 
 ```php
-Macaw::error(function() {
+app('route')->error(function() {
   echo '404 :: Not Found';
 });
 ```
 或者
 
 ```php
-Macaw::error('\PublicController@notfound');
+app('route')->error('\PublicController@notfound');
 ```
-fu
+
 再或者
 
 ```php
-Macaw::$error_callback=function(){
+app('route')->$error_callback=function(){
   echo '404 :: Not Found';
 }
 ```
@@ -169,7 +138,41 @@ Macaw::$error_callback=function(){
 本框架也推荐使用`RESTful`。  
 
 ```php
-Macaw::delete('posts/(:num)', '\app\controller\PostController@delete');
+app('route')->delete('posts/(:num)', '\app\controller\PostController@delete');
 ```
 
 将适配`DELETE`请求，并完成转发。
+
+同样的，使用
+```php
+app('route')->put('posts/(:num)', '\app\controller\PostController@put');
+```
+将适配`put`操作.
+
+以一步，如果你想适配任何请求，只需要
+
+```php
+app('route')->any('posts/(:num)', '\app\controller\PostController@index');
+```
+
+
+## 控制器路由
+
+看完以上的路由用法，相信你心里可能有个疑惑，我网站那个多的页面，难道要一个一个自己去写路由规则吗？
+
+当然不是，上面的都是自定义路由，而大多数情况下，我们都是使用的控制器路由，即让让路自动派遣到对应的控制器上。
+
+```php
+app('route')->any('/([\w\W]*)', function ($slug) {
+    \puck\helpers\Dispatch::dispatch($slug, '\\app');
+    return;
+});
+```
+第二个参数为项目的命令空间。
+
+此时，如果你访问
+```html
+xxx.com/a/b
+```
+则是绑定的
+`app\controllers\A`里面的`b`方法。

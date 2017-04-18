@@ -1,5 +1,6 @@
 - 入门
     - [啰嗦一番](/preface)
+    - [依赖注入](/di)
     - [快速开始](/quickstart)
     - [大体了解](/formind)
 - 进阶
