@@ -10,7 +10,10 @@
     - [数据库](/db)
     - [模型](/model)
     - [视图](/view)
+    - [验证](/validate)
     - [异常](/exception)
 -  拓展
     - [拼音转换](/pinyin)
     - [字符打乱](/chaos)
+    - [网络请求](/curl)
+    - [DOM解析](/dom)
