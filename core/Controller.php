@@ -5,9 +5,10 @@ class Controller
 {
 
     protected $viewPath='';
+    protected $title = '';
     private $twig;
     private $tVar=array();
-    protected $title='';
+
     public function __construct()
     {
         $loader=new \Twig_Loader_Filesystem(BASE_PATH.$this->viewPath);
@@ -29,18 +30,6 @@ class Controller
         $this->twig->addFunction($function);
     }
 
-    /**
-     * @param string $name
-     */
-    protected function assign($name, $value='')
-    {
-        if (is_array($name)) {
-            $this->tVar=array_merge($this->tVar, $name);
-        } else {
-            $this->tVar[$name]=$value;
-        }
-    }
-
     protected function show($tmpPath='')
     {
         if ($tmpPath == '') {
@@ -56,5 +45,20 @@ class Controller
         $this->assign('title', $this->title);
         echo $this->twig->render($tmpPath.'.'.TempExt, $this->tVar);
         die();
+    }
+
+    /**
+     * @param string $name
+     */
+    protected function assign($name, $value = '') {
+        if (is_array($name)) {
+            $this->tVar = array_merge($this->tVar, $name);
+        } else {
+            $this->tVar[$name] = $value;
+        }
+    }
+
+    protected function model($modelName, $vars = []) {
+        return app($modelName . '_model', $vars);
     }
 }

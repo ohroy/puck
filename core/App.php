@@ -72,6 +72,7 @@ class App extends Container {
         $this->instance('config',new Config());
         $this->instance('request',new Request($this->config));
         $this->instance('route',new Route($this->request));
+        $this->regexBind('#^(\w+)_model$#', "\\tests\\app\\models\\\\$1");
         $this->bind('pinyin','\puck\helpers\PinYin');
         $this->bind('curl','\puck\helpers\Curl');
         $this->bind('dom', '\puck\helpers\Dom');
