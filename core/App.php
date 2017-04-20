@@ -36,7 +36,7 @@ class App extends Container {
             $dotEnv->load();
         }
         catch (\Dotenv\Exception\InvalidPathException $e){
-            die("环境配置文件`.env`没有被找到.");
+
         }
         date_default_timezone_set(env('APP_TIMEZONE', 'Asia/Shanghai'));
         define('IS_CLI', $this->runningInConsole());
@@ -72,10 +72,11 @@ class App extends Container {
         $this->instance('config',new Config());
         $this->instance('request',new Request($this->config));
         $this->instance('route',new Route($this->request));
-        $this->regexBind('#^(\w+)_model$#', "\\tests\\app\\models\\\\$1");
+        $this->regexBind('#^(\w+)_model$#', "\\app\\models\\\\$1");
         $this->bind('pinyin','\puck\helpers\PinYin');
         $this->bind('curl','\puck\helpers\Curl');
         $this->bind('dom', '\puck\helpers\Dom');
+        $this->bind('db', '\puck\Db');
     }
 
     private function initConfig() {

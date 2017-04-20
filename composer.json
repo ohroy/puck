@@ -18,7 +18,6 @@
   "require": {
     "php": ">=7.0.0",
     "filp/whoops": "~2.1.6",
-    "joshcam/mysqli-database-class": "dev-master",
     "twig/twig":"~1.0",
     "overtrue/pinyin": "~3.0",
     "vlucas/phpdotenv": "^2.4",

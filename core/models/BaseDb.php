@@ -1,9 +1,7 @@
 <?php
 namespace puck\models;
 
-use puck\Model as model;
-
-class BaseModel extends Model
+class BaseDb extends Db
 {
     public function __construct()
     {

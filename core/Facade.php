@@ -5,7 +5,6 @@
 
 namespace puck;
 
-
 class Facade
 {
 
@@ -26,6 +25,15 @@ class Facade
         } else {
             self::$bind[$name]=$class;
         }
+    }
+
+    /**
+     * 带参数实例化当前Facade类
+     * @access public
+     * @return object
+     */
+    public static function instance(...$args) {
+        return self::createFacade('', $args);
     }
 
     /**
@@ -50,15 +58,6 @@ class Facade
 
     protected static function getFacadeClass()
     {}
-    /**
-     * 带参数实例化当前Facade类
-     * @access public
-     * @return object
-     */
-    public static function instance(...$args)
-    {
-        return self::createFacade('', $args);
-    }
 
     /**
      * 指定某个Facade类进行实例化
