@@ -383,6 +383,7 @@ class Model {
     public function __call($method, $arg) {
         if (method_exists($this, $method))
             return call_user_func_array(array($this, $method), $arg);
+        $this->db->table($this->dbTable);
         return call_user_func_array(array($this->db, $method), $arg);;
     }
 

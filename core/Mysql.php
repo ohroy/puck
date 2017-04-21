@@ -1213,8 +1213,8 @@ class Mysql {
      *
      * @return array Contains the returned rows from the select query.
      */
-    public function has($tableName) {
-        $this->getOne($tableName, '1');
+    public function has() {
+        $this->getOne($this->tableName, '1');
         return $this->count >= 1;
     }
 
