@@ -704,4 +704,9 @@ class Model {
 
         return $res;
     }
+
+    public function clear() {
+        $this->data=[];
+        $this->isNew=true;
+    }
 }
