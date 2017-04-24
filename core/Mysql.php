@@ -42,7 +42,7 @@ class Mysql {
      * @var int
      */
 
-    public $pageLimit = 20;
+    public $pageLimit;
     /**
      * Variable that holds total pages count of last paginate() query
      *
@@ -2193,7 +2193,7 @@ class Mysql {
     }
 
     public function select() {
-        return $this->db->get($this->tableName, $this->pageLimit ? $this->limitCount : null, $this->field);
+        return $this->get($this->tableName, $this->pageLimit ? $this->pageLimit : null, $this->field);
     }
 
     public function field($field) {
