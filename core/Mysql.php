@@ -2202,7 +2202,7 @@ class Mysql {
     }
 
     public function add($data) {
-        return $this->insert($this->table, $data);
+        return $this->insert($this->tableName, $data);
     }
 
     /**
