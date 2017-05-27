@@ -6,6 +6,8 @@ namespace puck\helpers;
 
 class Dispatch
 {
+    static $path;
+    static $ext;
     static public function init() {
         if (!IS_CLI) {
             define('NOW_TIME', $_SERVER['REQUEST_TIME']);
@@ -20,6 +22,7 @@ class Dispatch
     }
     static public function dispatch($path='', $app='\\admin') {
         self::init();
+        self::$path=$path;
         if ($path == '') {
             $path=array();
         } else {
@@ -35,7 +38,9 @@ class Dispatch
         }
         if (!empty($path)) {
             $tmpAction=array_pop($path);
-            $tmpAction=preg_replace('/\.(html|aspx|do|php|htm|h5|api)$/i', '', $tmpAction);
+            $tmpArray=explode(".",$tmpAction);
+            self::$ext=$tmpArray[1]??"";
+            $tmpAction=preg_replace('/\.(html|aspx|do|php|htm|h5|api|json|xml)$/i', '', $tmpAction);
             $tmpAction=parse_name($tmpAction, 1);
             $var['a']=$tmpAction;
         }
@@ -100,9 +105,15 @@ class Dispatch
     }
     static public function render($res) {
         $response=$res;
-        if (is_array($res)) {
+        $renderType=self::$ext??'json';
+
+        if($renderType=='json'){
             $response=json($res);
+        }elseif ($renderType=='xml'){
+            //todo:: 支持xml格式化输出
+            $response='don\'t support xml now!';
         }
+
         echo $response;
     }
 }
