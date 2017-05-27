@@ -105,13 +105,17 @@ class Dispatch
     }
     static public function render($res) {
         $response=$res;
-        $renderType=self::$ext??'json';
+        $renderType=self::$ext;
 
         if($renderType=='json'){
             $response=json($res);
         }elseif ($renderType=='xml'){
             //todo:: 支持xml格式化输出
             $response='don\'t support xml now!';
+        }elseif ($renderType==""){
+            if(is_array($res)||is_object($res)){
+                $response=json($res);
+            }
         }
 
         echo $response;
